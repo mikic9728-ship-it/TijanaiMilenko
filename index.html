@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tijana & Milenko — Wedding Memories. Upload fotografija i video uspomena sa venčanja 10.10.2026.">
+  <title>Tijana & Milenko — Wedding Memories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero section" id="top">
+      <nav class="nav" aria-label="Glavna navigacija">
+        <a class="brand" href="#top" aria-label="Tijana i Milenko početna">T&amp;M</a>
+        <a class="nav-link" href="#upload">Upload uspomena</a>
+      </nav>
+
+      <div class="hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow">10.10.2026.</p>
+          <h1>Tijana &amp; Milenko</h1>
+          <p class="subtitle">Wedding Memories</p>
+          <p class="hero-copy">
+            Hvala što ste deo našeg dana. Podelite sa nama fotografije i video uspomene
+            koje ste zabeležili tokom slavlja — svaki osmeh, ples i trenutak nam znači.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#upload">Dodaj uspomene</a>
+            <a class="button button-secondary" href="#qr">Otvori QR kod</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Detalji venčanja">
+          <span class="card-flourish" aria-hidden="true">✦</span>
+          <p class="card-label">Celebration of love</p>
+          <p class="card-names">Tijana<br>&amp;<br>Milenko</p>
+          <p class="card-date">Subota · 10. oktobar 2026.</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section how-to" aria-labelledby="how-title">
+        <div class="section-heading">
+          <p class="eyebrow">Kako uploadovati fajlove</p>
+          <h2 id="how-title">Tri jednostavna koraka</h2>
+        </div>
+        <div class="steps">
+          <article class="step-card">
+            <span class="step-number">01</span>
+            <h3>Izaberite uspomene</h3>
+            <p>Prevucite fajlove u upload zonu ili kliknite na dugme za izbor iz galerije.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">02</span>
+            <h3>Proverite formate</h3>
+            <p>Podržani su JPG, JPEG, PNG, HEIC, MP4 i MOV fajlovi do 50MB po fajlu.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">03</span>
+            <h3>Pošaljite na Drive</h3>
+            <p>Kliknite „Uploaduj uspomene“ i sačekajte potvrdu da su fajlovi uspešno poslati.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section upload-section" id="upload" aria-labelledby="upload-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Upload zona</p>
+          <h2 id="upload-title">Podelite fotografije i video zapise</h2>
+          <p>Možete odabrati više fajlova odjednom. Maksimalna veličina je 50MB po fajlu.</p>
+        </div>
+
+        <form class="upload-panel" id="uploadForm">
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-describedby="uploadHelp">
+            <input id="fileInput" name="memories" type="file" multiple accept=".jpg,.jpeg,.png,.heic,.mp4,.mov,image/jpeg,image/png,image/heic,video/mp4,video/quicktime" aria-label="Izaberite fotografije i video zapise">
+            <div class="drop-icon" aria-hidden="true">⇧</div>
+            <h3>Prevucite fajlove ovde</h3>
+            <p id="uploadHelp">ili kliknite za izbor slika i videa iz uređaja</p>
+            <span class="format-pill">JPG · JPEG · PNG · HEIC · MP4 · MOV</span>
+          </div>
+
+          <div class="file-summary" id="fileSummary" hidden>
+            <div>
+              <strong id="fileCount">0 fajlova</strong>
+              <span id="totalSize">0 MB ukupno</span>
+            </div>
+            <button class="text-button" id="clearFiles" type="button">Obriši izbor</button>
+          </div>
+
+          <ul class="file-list" id="fileList" aria-live="polite"></ul>
+
+          <div class="progress-wrap" id="progressWrap" hidden>
+            <div class="progress-meta">
+              <span id="progressLabel">Priprema upload-a...</span>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+
+          <div class="status-message" id="statusMessage" role="status" aria-live="polite"></div>
+
+          <button class="button button-primary upload-button" id="uploadButton" type="submit" disabled>
+            Uploaduj uspomene
+          </button>
+        </form>
+      </section>
+
+      <section class="section qr-section" id="qr" aria-labelledby="qr-title">
+        <div class="qr-card">
+          <div>
+            <p class="eyebrow">QR kod za sajt</p>
+            <h2 id="qr-title">Skenirajte i uploadujte direktno sa telefona</h2>
+            <p>
+              Otvorite ovu stranicu na javnom linku, a QR kod će se automatski generisati
+              za deljenje gostima na pozivnici, stolu dobrodošlice ili projekciji.
+            </p>
+          </div>
+          <div class="qr-box">
+            <img id="qrImage" src="" alt="QR kod za Tijana & Milenko Wedding Memories sajt">
+            <p id="qrUrl">URL sajta će se pojaviti ovde.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
