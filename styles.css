@@ -85,7 +85,7 @@ body::before {
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: 820px;
   padding-top: 0;
   display: flex;
   align-items: center;
@@ -99,19 +99,16 @@ body::before {
   background-image:
     linear-gradient(
       to bottom,
-      rgba(0,0,0,0.10) 0%,
-      rgba(245,240,232,0.18) 35%,
-      rgba(245,240,232,0.72) 68%,
-      rgba(245,240,232,0.96) 100%
+      rgba(0,0,0,0.18) 0%,
+      rgba(0,0,0,0.08) 24%,
+      rgba(245,240,232,0.20) 55%,
+      rgba(245,240,232,0.92) 100%
     ),
     url("hero.jpg.jpg");
 
   background-size: cover;
-  background-position: center top;
+  background-position: center 18%;
   background-repeat: no-repeat;
-
-  filter: blur(1px);
-  transform: scale(1.03);
 
   z-index: 0;
 }
@@ -122,9 +119,13 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 45%;
+  height: 38%;
 
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  mask-image: linear-gradient(to bottom, transparent, black);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black);
 
   z-index: 0;
 }
@@ -194,7 +195,31 @@ h1 {
   max-width: 620px;
   font-size: 1.08rem;
 }
+.hero-content {
+  max-width: 640px;
+}
 
+.hero-content h1,
+.hero-content .subtitle,
+.hero-content .hero-copy,
+.hero-content .eyebrow {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  color: #ffffff;
+  text-shadow:
+    0 4px 24px rgba(0,0,0,0.35),
+    0 2px 10px rgba(0,0,0,0.25);
+}
+
+.hero-content .subtitle,
+.hero-content .hero-copy,
+.hero-content .eyebrow {
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.28);
+}
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -617,5 +642,44 @@ h2 {
   .file-list li {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+@media (max-width: 860px) {
+  .hero {
+    min-height: 760px;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .hero::before {
+    background-position: center top;
+    background-size: cover;
+  }
+
+  .hero-grid {
+    padding-top: 90px;
+  }
+
+  .hero-content {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(4rem, 20vw, 6rem);
+    line-height: 0.9;
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-card {
+    display: none;
   }
 }
