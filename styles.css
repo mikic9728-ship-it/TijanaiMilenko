@@ -661,8 +661,8 @@ h2 {
   }
 
   .hero-content {
-    text-align: center;
-    margin: 0 auto;
+  text-align: left;
+  margin: 0;
   }
 
   .hero-content h1 {
@@ -676,7 +676,7 @@ h2 {
   }
 
   .hero-actions {
-    justify-content: center;
+  justify-content: flex-start;
   }
 
   .hero-card {
