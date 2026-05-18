@@ -281,12 +281,18 @@ async function handleUpload(event) {
         {
           method: "POST",
 
-          mode: "cors",
+          const response = await fetch(
+  uploadEndpoint,
+  {
+    method: "POST",
 
-          headers: {
-            "Content-Type":
-              "text/plain;charset=utf-8",
-          },
+    body: JSON.stringify({
+      name: file.name,
+      type: file.type,
+      file: base64.split(",")[1]
+    })
+  }
+);
 
           body: JSON.stringify({
             name: file.name,
