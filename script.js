@@ -277,11 +277,6 @@ async function handleUpload(event) {
         await toBase64(file);
 
       const response = await fetch(
-        uploadEndpoint,
-        {
-          method: "POST",
-
-          const response = await fetch(
   uploadEndpoint,
   {
     method: "POST",
@@ -293,14 +288,6 @@ async function handleUpload(event) {
     })
   }
 );
-
-          body: JSON.stringify({
-            name: file.name,
-            type: file.type,
-            file: base64.split(",")[1]
-          })
-        }
-      );
 
       const result =
         await response.json();
