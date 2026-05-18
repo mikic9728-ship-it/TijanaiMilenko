@@ -10,7 +10,7 @@ const ALLOWED_EXTENSIONS = [
 ];
 
 const FALLBACK_UPLOAD_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbxEv1xZ7NOzJX_8IWdwh0VrVbw_3N1W89hFIAPsK6vmSkQVAS3j84_VpBCsyE3mKls3/exec";
+  "https://script.google.com/macros/s/AKfycbxEv1xZ7NOzJX_8IWdwh0VrVbw_3N1W89hFIAPsK6vmSkQVAS3j84_VpBCsyE3mKls3/exec";";
 
 const fileInput = document.querySelector("#fileInput");
 const dropZone = document.querySelector("#dropZone");
