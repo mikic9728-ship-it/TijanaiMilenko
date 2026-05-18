@@ -691,19 +691,18 @@ h2 {
   }
 
   .hero-actions {
-    order: 4;
-    justify-content: center;
-    margin-top: 24px;
-  }
+  order: 4;
+  justify-content: center;
+  margin-top: 280px;
+}
 
-  .hero-copy {
-    order: 5;
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 92%;
-    margin: 26px auto 0;
-  }
-
+.hero-copy {
+  order: 5;
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 92%;
+  margin: 24px auto 0;
+}
   .hero-card {
     display: none;
   }
