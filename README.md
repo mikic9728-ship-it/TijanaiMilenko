@@ -1,111 +1,87 @@
 # Tijana & Milenko — Wedding Memories
 
-Moderan, luksuzno-minimalan wedding web sajt za prikupljanje fotografija i video uspomena sa venčanja **Tijana & Milenko — 10.10.2026.**
+Wedding web sajt za prikupljanje fotografija i video uspomena sa venčanja **Tijana & Milenko — 10.10.2026.**
 
 ## Sadržaj
 
 - `index.html` — struktura sajta sa hero sekcijom, uputstvom, upload zonom i QR kodom.
-- `styles.css` — responsive luxury minimal dizajn u beloj, beige i champagne gold paleti.
-- `script.js` — drag & drop upload, validacija fajlova, progress bar, potvrda upload-a i QR kod.
+- `styles.css` — responsive dizajn u beloj, beige i champagne gold paleti.
+- `script.js` — drag & drop upload, validacija, status uploada i QR kod.
 
 ## Funkcije
 
-- Drag & drop upload zona.
-- Upload više fajlova odjednom.
-- Podrška za slike i video zapise.
-- Maksimalna veličina fajla: **50MB po fajlu**.
-- Podržani formati:
-  - Slike: `jpg`, `jpeg`, `png`, `heic`
-  - Video: `mp4`, `mov`
-- Progress bar tokom slanja.
-- Poruka potvrde nakon uspešnog upload-a.
-- Automatski QR kod za trenutni URL sajta.
-- Google Drive integracija preko backend endpoint-a koji koristi `.env` podatke.
+- Drag & drop i pristupačan izbor fajlova tastaturom.
+- Upload više fajlova, jedan po jedan.
+- Podržani formati: JPG, JPEG, PNG, HEIC, MP4 i MOV.
+- Maksimalna veličina originalnog fajla: **50 MB po fajlu**.
+- Prikaz napretka po završenim fajlovima.
+- Uspješno poslani fajlovi uklanjaju se iz reda, pa se pri ponovnom pokušaju ne šalju ponovo.
+- Izbor i brisanje fajlova zaključani su dok upload traje.
+- Automatski QR kod za URL stranice.
+- Podrška za čitače ekrana, vidljiv fokus tastature i `prefers-reduced-motion`.
 
-## Brzo pokretanje
+## Lokalno pokretanje
 
-Otvorite `index.html` direktno u browseru ili pokrenite lokalni server:
+Pokrenite lokalni web server iz direktorijuma projekta, na primer:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Zatim otvorite:
+Zatim otvorite `http://localhost:8080`.
 
-```text
-http://localhost:8080
-```
+## Google Drive integracija
 
-## Google Drive integracija preko `.env` podataka
+Frontend šalje svaki fajl zasebno Google Apps Script Web App endpoint-u. Zahtjev je `text/plain` sa JSON sadržajem kako se ne bi aktivirao CORS preflight. JSON sadrži:
 
-Browser ne sme direktno da čita `.env` niti Google service account ključeve. Zbog toga ovaj frontend šalje fajlove na backend endpoint, podrazumevano:
+- `name` — naziv fajla;
+- `type` — MIME tip ili `application/octet-stream`;
+- `size` — veličinu originalnog fajla u bajtovima;
+- `lastModified` — vrijeme posljednje izmjene;
+- `uploadId` — jedinstveni identifikator pokušaja;
+- `file` — Base64 sadržaj fajla.
 
-```text
-POST /api/upload
-```
-
-Backend treba da učita `.env` podatke, autentifikuje se na Google Drive i uploaduje fajlove u željeni folder.
-
-### Primer `.env` vrednosti
-
-```env
-GOOGLE_DRIVE_FOLDER_ID=your_google_drive_folder_id
-GOOGLE_CLIENT_EMAIL=your-service-account@project.iam.gserviceaccount.com
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----\n"
-UPLOAD_ENDPOINT=/api/upload
-MAX_FILE_SIZE_MB=50
-```
-
-### Očekivani backend endpoint
-
-Frontend šalje `multipart/form-data` zahtev sa:
-
-- `files` — jedan ili više fajlova.
-- `eventName` — `Tijana & Milenko — Wedding Memories`.
-- `eventDate` — `2026-10-10`.
-
-Uspešan odgovor treba da vrati HTTP status `2xx`, na primer:
+Uspješan odgovor mora vratiti HTTP status `2xx` i JSON:
 
 ```json
 {
-  "message": "Files uploaded successfully"
+  "success": true,
+  "message": "File uploaded successfully"
 }
 ```
 
-U slučaju greške backend može vratiti:
+U slučaju greške endpoint treba vratiti:
 
 ```json
 {
-  "message": "Upload nije uspeo. Pokušajte ponovo."
+  "success": false,
+  "message": "Upload nije uspio. Pokušajte ponovo."
 }
 ```
 
-### Promena upload endpoint-a
+### Promjena upload endpoint-a
 
-Ako backend nije na `/api/upload`, možete pre učitavanja `script.js` definisati globalnu vrednost:
+Endpoint se definiše prije učitavanja `script.js`:
 
 ```html
 <script>
-  window.WEDDING_UPLOAD_ENDPOINT = "https://your-domain.com/api/upload";
+  window.WEDDING_UPLOAD_ENDPOINT = "https://your-endpoint.example/upload";
 </script>
 <script src="script.js"></script>
 ```
 
-Alternativno, napravite endpoint `GET /api/config` koji vraća:
+Ako globalna vrijednost nije postavljena, koristi se fallback URL iz `script.js`.
 
-```json
-{
-  "uploadEndpoint": "https://your-domain.com/api/upload"
-}
-```
+> **Napomena za 50 MB:** limit u interfejsu odnosi se na originalni fajl. Base64 uvećava tijelo zahtjeva za približno 33%, pa fajl od 50 MB proizvodi zahtjev od približno 66,7 MB prije malog JSON dodatka. Pouzdana podrška za maksimalne video fajlove zahtijeva backend sa direktnim ili dijeljenim/resumable uploadom; Apps Script Base64 tok treba obavezno testirati sa stvarnim nalogom i mobilnom mrežom prije događaja.
 
-## Deploy napomene
+## Deploy
 
-1. Postavite statičke fajlove na hosting kao što su Netlify, Vercel, Cloudflare Pages ili bilo koji web server.
-2. Dodajte backend/serverless funkciju za `POST /api/upload`.
-3. U hosting dashboard-u unesite `.env` promenljive iz sekcije iznad.
-4. Podelite javni URL sajta gostima ili odštampajte QR kod koji se prikazuje na stranici.
+1. Postavite statičke fajlove na GitHub Pages ili drugi hosting.
+2. Objavite Apps Script kao Web App koji vraća gore opisani JSON.
+3. Postavite njegov `/exec` URL u `window.WEDDING_UPLOAD_ENDPOINT` u `index.html`.
+4. Testirajte mali JPG, zatim veće fotografije i video na mobilnoj mreži.
+5. Podijelite javni URL sajta gostima ili odštampajte QR kod.
 
-## Privatnost
+## Privatnost i sigurnost
 
-Google Drive folder delite samo sa service account email adresom iz `.env` konfiguracije. Nemojte stavljati privatne ključeve u `index.html`, `script.js` ili bilo koji javno dostupan fajl.
+Apps Script endpoint je vidljiv svakome ko otvori sajt. To je očekivano za browser aplikaciju, ali `doPost(e)` mora na serveru provjeravati veličinu, tip i naziv fajla i imati zaštitu od automatizovane zloupotrebe. Nemojte stavljati privatne ključeve ili OAuth tokene u `index.html`, `script.js` ili drugi javno dostupan fajl.

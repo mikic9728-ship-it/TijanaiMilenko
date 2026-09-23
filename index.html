@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="sr-Latn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,14 @@
   <title>Tijana & Milenko — Wedding Memories</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="hero.jpg.jpg" as="image" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Preskoči na glavni sadržaj</a>
   <div class="page-shell">
     <header class="hero section" id="top">
-      <nav class="nav" aria-label="Glavna navigacija">
-      </nav>
-
       <div class="hero-grid">
         <div class="hero-content">
           <p class="eyebrow">10.10.2026.</p>
@@ -45,7 +44,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="section how-to" aria-labelledby="how-title">
         <div class="section-heading">
           <p class="eyebrow">Kako uploadovati fajlove</p>
@@ -77,14 +76,14 @@
           <p>Možete odabrati više fajlova odjednom. Maksimalna veličina je 50MB po fajlu.</p>
         </div>
 
-        <form class="upload-panel" id="uploadForm">
-          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-describedby="uploadHelp">
-            <input id="fileInput" name="memories" type="file" multiple accept=".jpg,.jpeg,.png,.heic,.mp4,.mov,image/jpeg,image/png,image/heic,video/mp4,video/quicktime" aria-label="Izaberite fotografije i video zapise">
+        <form class="upload-panel" id="uploadForm" aria-busy="false">
+          <input class="file-input" id="fileInput" name="memories" type="file" multiple accept=".jpg,.jpeg,.png,.heic,.mp4,.mov,image/jpeg,image/png,image/heic,video/mp4,video/quicktime" aria-describedby="uploadHelp">
+          <label class="drop-zone" id="dropZone" for="fileInput" aria-disabled="false">
             <div class="drop-icon" aria-hidden="true">⇧</div>
             <h3>Prevucite fajlove ovde</h3>
             <p id="uploadHelp">ili kliknite za izbor slika i videa iz uređaja</p>
             <span class="format-pill">JPG · JPEG · PNG · HEIC · MP4 · MOV</span>
-          </div>
+          </label>
 
           <div class="file-summary" id="fileSummary" hidden>
             <div>
@@ -101,12 +100,12 @@
               <span id="progressLabel">Priprema upload-a...</span>
               <span id="progressPercent">0%</span>
             </div>
-            <div class="progress-track" aria-hidden="true">
+            <div class="progress-track" id="progressTrack" role="progressbar" aria-labelledby="progressLabel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0%. Priprema upload-a...">
               <div class="progress-bar" id="progressBar"></div>
             </div>
           </div>
 
-          <div class="status-message" id="statusMessage" role="status" aria-live="polite"></div>
+          <div class="status-message" id="statusMessage" role="status" aria-live="polite" aria-atomic="true"></div>
 
           <button class="button button-primary upload-button" id="uploadButton" type="submit" disabled>
             Uploaduj uspomene
@@ -125,7 +124,7 @@
             </p>
           </div>
           <div class="qr-box">
-            <img id="qrImage" src="" alt="QR kod za Tijana & Milenko Wedding Memories sajt">
+            <img id="qrImage" src="" width="224" height="224" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="QR kod za Tijana & Milenko Wedding Memories sajt">
             <p id="qrUrl">URL sajta će se pojaviti ovde.</p>
           </div>
         </div>
@@ -134,9 +133,9 @@
   </div>
 
   <script>
-window.WEDDING_UPLOAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbxEv1xZ7NOzJX_8IWdwh0VrVbw_3N1W89hFIAPsK6vmSkQVAS3j84_VpBCsyE3mKls3/exec";
-</script>
+    window.WEDDING_UPLOAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbxEv1xZ7NOzJX_8IWdwh0VrVbw_3N1W89hFIAPsK6vmSkQVAS3j84_VpBCsyE3mKls3/exec";
+  </script>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
